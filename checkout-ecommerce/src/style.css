@@ -1,0 +1,214 @@
+/* Fundo geral */
+body {
+    background: #f4f6f8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabeçalho */
+header {
+    background: #fff;
+    color: #1b5e20;
+    padding: 2rem 0 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid #e3e9ed;
+}
+header h1 {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0;
+    color: #1b5e20;
+}
+
+/* Layout principal */
+.checkout-container {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    background: transparent;
+    border-radius: 18px;
+    box-shadow: none;
+    padding: 0;
+}
+.checkout-content.grid-2col {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+@media (max-width: 900px) {
+    .checkout-content.grid-2col {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Formulário */
+.checkout-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px #0002;
+    padding: 2.2rem 2.5rem 2rem 2.5rem;
+    border: 1px solid #e3e9ed;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.checkout-form h2 {
+    color: #1b5e20;
+    font-size: 1.2em;
+    margin: 1.5em 0 0.5em 0;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.checkout-form label {
+    font-weight: 600;
+    color: #1b5e20;
+    font-size: 1em;
+}
+.checkout-form input,
+.checkout-form select {
+    border: 1.5px solid #e3e9ed;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    background: #f8fdf9;
+    font-size: 1em;
+    width: 100%;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+.checkout-form input:focus,
+.checkout-form select:focus {
+    outline: 2px solid #1b5e20;
+    border-color: #1b5e20;
+    background: #fff;
+}
+
+/* Botão principal */
+.finalizar-btn {
+    width: 100%;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 1.1em 0;
+    font-size: 1.13em;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1.2em;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7em;
+    box-shadow: 0 2px 8px #0001;
+}
+.finalizar-btn:hover {
+    background: #145ea8;
+}
+
+/* Botão remover produto */
+.remove-item {
+    background: none;
+    border: none;
+    color: #d32f2f;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-left: 0.5em;
+    transition: color 0.2s;
+}
+.remove-item:hover {
+    color: #fff;
+    background: #d32f2f;
+    border-radius: 50%;
+}
+
+/* Resumo lateral */
+.checkout-summary {
+    position: sticky;
+    top: 2rem;
+}
+.summary-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px #0002;
+    padding: 2.2rem 2rem 2rem 2rem;
+    border: 1px solid #e3e9ed;
+}
+.summary-title {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #1b5e20;
+    margin-bottom: 1.2em;
+}
+.summary-items {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1em;
+}
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 0.7em;
+}
+.summary-item img {
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1.5px solid #cce3d1;
+    background: #f6faf7;
+}
+.item-title {
+    font-weight: 600;
+    color: #222;
+    font-size: 1em;
+}
+.item-ref {
+    color: #388e3c;
+    font-size: 0.93em;
+}
+.item-price {
+    margin-left: auto;
+    font-weight: 600;
+    color: #1b5e20;
+    font-size: 1em;
+}
+.summary-totals {
+    margin: 1em 0;
+    font-size: 1em;
+}
+.summary-totals div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3em;
+}
+.summary-totals .total {
+    font-size: 1.2em;
+    color: #1976d2;
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+.summary-note {
+    font-size: 0.97em;
+    color: #666;
+    margin-bottom: 1.2em;
+    margin-top: 1em;
+    line-height: 1.5;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .checkout-form,
+    .summary-box {
+        padding: 1.2rem 0.7rem;
+    }
+    .checkout-container {
+        padding: 0.5rem;
+    }
+}

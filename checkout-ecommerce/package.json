@@ -1,0 +1,16 @@
+{
+  "name": "checkout-ecommerce",
+  "version": "1.0.0",
+  "description": "Projeto de página de checkout para um e-commerce.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build process not defined yet.'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "author": "Seu Nome",
+  "license": "MIT"
+}

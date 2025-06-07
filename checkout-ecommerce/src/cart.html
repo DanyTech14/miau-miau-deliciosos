@@ -269,7 +269,7 @@
                             <span class="cart-ref">Ref.: ${item.ref}</span>
                         </div>
                         <div class="cart-qtd-controls">
-                            <button class="cart-qtd-btn" data-action="decrease" title="Diminuir">−</button>
+                            <button class="cart-qtd-btn" data-action="decrease" title="Diminuir" ${item.quantidade === 1 ? 'disabled' : ''}>−</button>
                             <span class="cart-qtd">${item.quantidade}</span>
                             <button class="cart-qtd-btn" data-action="increase" title="Aumentar">+</button>
                         </div>

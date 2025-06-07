@@ -114,5 +114,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Limpa todos os campos do formulário ao recarregar a página
     const form = document.querySelector('.checkout-form');
     if (form) form.reset();
+
+    function showStep(step) {
+        document.querySelectorAll('.checkout-step').forEach((el, idx) => {
+            el.style.display = (idx === step) ? '' : 'none';
+        });
+        document.querySelectorAll('.step-indicator .step').forEach((el, idx) => {
+            el.classList.toggle('active', idx === step);
+        });
+    }
+
+    // Início na etapa 0 (login)
+    let currentStep = 0;
+    showStep(currentStep);
+
+    // Login -> Entrega
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        currentStep = 1;
+        showStep(currentStep);
+    });
+
+    // Entrega -> Pagamento
+    document.getElementById('delivery-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        currentStep = 2;
+        showStep(currentStep);
+    });
 });
 

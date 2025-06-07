@@ -2,110 +2,556 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <title>Carrinho | Ombu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | E-commerce Angola</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ombu-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+            font-weight: 900;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .ombu-logo .logo-icon {
+            width: 2.2em;
+            height: 2.2em;
+            background: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 2px 8px #0007;
+            border: 2px solid #fff;
+        }
+        .cart-main {
+            max-width: 700px;
+            margin: 2.5rem auto;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #000a;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            border: 2px solid #444;
+        }
+        .cart-title {
+            font-size: 1.2em;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cart-items {
+            margin-bottom: 1.5em;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            background: #181818;
+            border-radius: 7px;
+            padding: 0.7em 1em;
+            border: 1.5px solid #333;
+            box-shadow: 0 1px 4px #0008;
+            margin-bottom: 0.7em;
+        }
+        .cart-item img {
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            object-fit: cover;
+            border: 2px solid #444;
+            background: #111;
+        }
+        .cart-info {
+            flex: 1 1 auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.1em;
+        }
+        .cart-nome {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            text-align: left;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-ref {
+            color: #888;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .cart-qtd-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            margin-left: 1em;
+            flex-direction: row;
+        }
+        .cart-qtd-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 1.7em;
+            height: 1.7em;
+            font-size: 1em;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .cart-qtd-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #222;
+        }
+        .cart-qtd-btn:hover:not(:disabled) {
+            background: #222;
+        }
+        .cart-qtd {
+            min-width: 1.5em;
+            text-align: center;
+            font-weight: 700;
+            color: #fff;
+        }
+        .cart-preco {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1em;
+            background: #444;
+            border-radius: 4px;
+            padding: 0.2em 0.7em;
+            white-space: nowrap;
+            text-align: right;
+            margin-left: 1em;
+        }
+        .cart-remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-left: 0.7em;
+            transition: color 0.2s, background 0.2s;
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-remove-btn:hover {
+            color: #fff;
+            background: #e74c3c;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            color: #fff;
+            font-size: 1.1em;
+            margin-top: 1em;
+            border-top: 1px solid #333;
+            padding-top: 0.7em;
+        }
+        .cart-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2em;
+        }
+        .cart-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            padding: 0.9em 2.2em;
+            font-size: 1em;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 1px 4px #000a;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cart-btn:hover {
+            background: #222;
+            color: #fff;
+            border: 1.5px solid #444;
+        }
+        .cart-img-zoom {
+            position: relative;
+            cursor: zoom-in;
+        }
+        .cart-img-zoom:hover::after {
+            content: '';
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%) scale(2.2);
+            width: 100%; height: 100%;
+            background: url(var(--img)) center/cover no-repeat;
+            border-radius: 7px;
+            z-index: 10;
+            box-shadow: 0 0 16px #000a;
+        }
+        .cart-cupom {
+            display: flex;
+            gap: 0.5em;
+            margin-bottom: 1em;
+        }
+        .cart-cupom input {
+            flex: 1;
+            padding: 0.5em;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #181818;
+            color: #fff;
+        }
+        .cart-cupom button {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5em 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cart-cupom button:hover {
+            background: #222;
+        }
+        .cart-cupom-msg {
+            color: #2ecc40;
+            font-size: 0.97em;
+            margin-bottom: 0.5em;
+        }
+        .cart-empty-btn {
+            background: none;
+            border: 1.5px solid #e74c3c;
+            color: #e74c3c;
+            border-radius: 7px;
+            padding: 0.5em 1.2em;
+            font-size: 0.97em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: auto;
+            margin-bottom: 1em;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cart-empty-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .cart-item-estoque {
+            color: #ffb300;
+            font-size: 0.9em;
+            margin-top: 0.2em;
+        }
+        .cart-entrega {
+            color: #bbb;
+            font-size: 0.97em;
+            margin-top: 0.7em;
+        }
+        .cart-login-msg {
+            color: #e74c3c;
+            font-size: 1em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .cart-login-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            padding: 0.7em 2em;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0 auto 1em auto;
+            display: block;
+        }
+        .cart-sugestoes {
+            margin-top: 2em;
+            border-top: 1px solid #333;
+            padding-top: 1em;
+        }
+        .cart-sugestoes-title {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 0.7em;
+            font-size: 1.05em;
+        }
+        .cart-sugestoes-list {
+            display: flex;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+        .cart-sugestao {
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 7px;
+            padding: 0.7em;
+            width: 120px;
+            text-align: center;
+            color: #fff;
+        }
+        .cart-sugestao img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 0.5em;
+        }
+        .cart-sugestao-nome {
+            font-size: 0.97em;
+            font-weight: 700;
+        }
+        .cart-sugestao-btn {
+            margin-top: 0.5em;
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 0.3em 0.7em;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .cart-sugestao-btn:hover {
+            background: #222;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Finalizar Compra</h1>
-    </header>
-    <main class="checkout-container">
-      <div class="checkout-steps">
-        <div class="step-indicator">
-          <span class="step active">1</span>
-          <span class="step">2</span>
-          <span class="step">3</span>
+        <div class="ombu-logo">
+            <span class="logo-icon">O</span>
+            Ombu
         </div>
-        <!-- Etapa 1: Login -->
-        <section class="checkout-step" id="step-login">
-          <form id="login-form" class="checkout-form">
-            <h2>Login</h2>
-            <div class="form-group">
-              <label for="login-email">E-mail</label>
-              <input type="email" id="login-email" required>
+    </header>
+    <main>
+        <div class="cart-main">
+            <div class="cart-title">Seu carrinho</div>
+            <div class="cart-login-msg" id="cart-login-msg" style="display:none;">
+                Faça login para finalizar sua compra.
+                <button class="cart-login-btn" onclick="loginSimulado()">Entrar</button>
             </div>
-            <div class="form-group">
-              <label for="login-password">Senha</label>
-              <input type="password" id="login-password" required>
+            <button class="cart-empty-btn" id="cart-empty-btn">Esvaziar carrinho</button>
+            <form class="cart-cupom" onsubmit="aplicarCupom(event)">
+                <input type="text" id="cupom" placeholder="Cupom de desconto">
+                <button type="submit">Aplicar</button>
+            </form>
+            <div class="cart-cupom-msg" id="cart-cupom-msg"></div>
+            <div class="cart-items" id="cart-items">
+                <!-- Itens do carrinho serão renderizados aqui -->
             </div>
-            <button type="submit" class="finalizar-btn">Continuar</button>
-          </form>
-        </section>
-        <!-- Etapa 2: Entrega -->
-        <section class="checkout-step" id="step-delivery" style="display:none;">
-          <form id="delivery-form" class="checkout-form">
-            <h2>Endereço de Entrega</h2>
-            <div class="form-group">
-              <label for="nome">Nome completo</label>
-              <input type="text" id="nome" required>
+            <div class="cart-total" id="cart-total">
+                <span>Total</span>
+                <span>0 Kz</span>
             </div>
-            <div class="form-group">
-              <label for="telefone">Telefone</label>
-              <input type="tel" id="telefone" required>
+            <div class="cart-entrega" id="cart-entrega"></div>
+            <div class="cart-actions">
+                <a href="cart.html" class="cart-btn" id="checkout-btn">Finalizar compra</a>
             </div>
-            <div class="form-group">
-              <label for="endereco">Endereço</label>
-              <input type="text" id="endereco" required>
+            <div class="cart-sugestoes" id="cart-sugestoes">
+                <div class="cart-sugestoes-title">Você também pode gostar</div>
+                <div class="cart-sugestoes-list" id="cart-sugestoes-list"></div>
             </div>
-            <div class="form-group">
-              <label for="cidade">Cidade</label>
-              <input type="text" id="cidade" required>
-            </div>
-            <div class="form-group">
-              <label for="provincia">Província</label>
-              <select id="provincia" required>
-                <option value="">Selecione</option>
-                <option>Luanda</option>
-                <option>Benguela</option>
-                <option>Huíla</option>
-                <option>Namibe</option>
-              </select>
-            </div>
-            <button type="submit" class="finalizar-btn">Continuar</button>
-          </form>
-        </section>
-        <!-- Etapa 3: Pagamento e Resumo -->
-        <section class="checkout-step" id="step-payment" style="display:none;">
-          <form id="payment-form" class="checkout-form">
-            <h2>Pagamento</h2>
-            <div class="form-group">
-              <label for="pagamento">Método</label>
-              <select id="pagamento" required>
-                <option value="">Selecione</option>
-                <option>Multicaixa</option>
-                <option>Transferência Bancária</option>
-              </select>
-            </div>
-            <div class="form-group" id="dados-bancarios" style="display:none;">
-              <label>Dados bancários para transferência:</label>
-              <div class="bank-details">
-                <b>Banco:</b> BAI<br>
-                <b>IBAN:</b> AO06 0006 0000 0000 0000 1010<br>
-                <b>Beneficiário:</b> Sua Empresa Lda
-              </div>
-            </div>
-            <button type="submit" class="finalizar-btn"><i class="fa fa-lock"></i> Finalizar compra</button>
-          </form>
-          <aside class="checkout-summary">
-            <div class="summary-box">
-              <div class="summary-title">Resumo do pedido</div>
-              <div class="summary-items" id="cart-list">
-                <!-- Os itens do carrinho serão renderizados via JS -->
-              </div>
-              <div class="summary-totals">
-                <div><span>Subtotal</span><span>0 Kz</span></div>
-                <div><span>Entrega</span><span>0 Kz</span></div>
-                <div class="total"><span>Total</span><span>0 Kz</span></div>
-              </div>
-              <div class="summary-note">Preço com IVA incluído.</div>
-            </div>
-          </aside>
-        </section>
-      </div>
+        </div>
     </main>
-    <script src="js/script.js"></script>
+    <script>
+        // Simulação de login
+        let logado = false;
+
+        function loginSimulado() {
+            logado = true;
+            document.getElementById('cart-login-msg').style.display = 'none';
+            document.getElementById('cart-items').style.display = 'block';
+            document.getElementById('cart-total').style.display = 'block';
+            document.querySelector('.cart-actions').style.display = 'flex';
+            renderCart();
+        }
+
+        // Carrinho de exemplo
+        let cart = [
+            {
+                nome: "Camiseta Angola",
+                ref: "A001",
+                preco: 5000,
+                imagem: "https://th.bing.com/th/id/OIP.My-x02eN4lDFqKhNBcL74wHaHa?w=200&h=200&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 4
+            },
+            {
+                nome: "Boné Luanda",
+                ref: "B002",
+                preco: 3500,
+                imagem: "https://th.bing.com/th/id/OIP.U2XStKmc848bDwVYcFhCrgHaIl?w=183&h=212&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 2
+            },
+            {
+                nome: "Caneca Maputo",
+                ref: "C003",
+                preco: 2500,
+                imagem: "https://th.bing.com/th/id/OIP.Dl9GjVD59f0bYNYzlr3zuAHaE6?w=295&h=196&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 2
+            }
+        ];
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div style="text-align:center; color:#bbb; padding:2em 0; font-size:1.1em;">
+                        Seu carrinho está vazio.
+                    </div>
+                `;
+                document.getElementById('cart-total').innerHTML = '';
+                document.querySelector('.cart-actions').style.display = 'none';
+                return;
+            } else {
+                document.querySelector('.cart-actions').style.display = 'flex';
+            }
+            cart.forEach((item, idx) => {
+                total += item.preco * item.quantidade;
+                cartItems.innerHTML += `
+                    <div class="cart-item" data-idx="${idx}">
+                        <div class="cart-img-zoom">
+                            <img src="${item.imagem}" alt="">
+                        </div>
+                        <div class="cart-info">
+                            <span class="cart-nome">${item.nome}</span>
+                            <span class="cart-ref">Ref.: ${item.ref}</span>
+                            <span class="cart-item-estoque" style="display:none;">Em estoque</span>
+                        </div>
+                        <div class="cart-qtd-controls">
+                            <button class="cart-qtd-btn" data-action="decrease" title="Diminuir" ${item.quantidade === 1 ? 'disabled' : ''}>−</button>
+                            <span class="cart-qtd">${item.quantidade}</span>
+                            <button class="cart-qtd-btn" data-action="increase" title="Aumentar">+</button>
+                        </div>
+                        <span class="cart-preco">${
+                            item.quantidade > 1
+                                ? item.quantidade + ' x ' + item.preco.toLocaleString('pt-AO') + ' Kz'
+                                : item.preco.toLocaleString('pt-AO') + ' Kz'
+                        }</span>
+                        <button class="cart-remove-btn" title="Remover">&times;</button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerHTML = `
+                <span>Total</span>
+                <span>${total.toLocaleString('pt-AO')} Kz</span>
+            `;
+            document.getElementById('cart-entrega').innerHTML = `
+                <span>Entrega:</span>
+                <span>Grátis</span>
+            `;
+            sugerirProdutos();
+        }
+
+        function sugerirProdutos() {
+            const sugestoes = [
+                {
+                    nome: "Camiseta Luanda",
+                    ref: "A002",
+                    preco: 4500,
+                    imagem: "https://th.bing.com/th/id/OIP.My-x02eN4lDFqKhNBcL74wHaHa?w=200&h=200&c=7&r=0&o=7&pid=1.7&rm=3"
+                },
+                {
+                    nome: "Boné Angola",
+                    ref: "B003",
+                    preco: 3700,
+                    imagem: "https://th.bing.com/th/id/OIP.U2XStKmc848bDwVYcFhCrgHaIl?w=183&h=212&c=7&r=0&o=7&pid=1.7&rm=3"
+                },
+                {
+                    nome: "Caneca Angola",
+                    ref: "C004",
+                    preco: 2700,
+                    imagem: "https://th.bing.com/th/id/OIP.Dl9GjVD59f0bYNYzlr3zuAHaE6?w=295&h=196&c=7&r=0&o=7&pid=1.7&rm=3"
+                }
+            ];
+            const cartSugestoesList = document.getElementById('cart-sugestoes-list');
+            cartSugestoesList.innerHTML = '';
+            sugestoes.forEach((item) => {
+                cartSugestoesList.innerHTML += `
+                    <div class="cart-sugestao">
+                        <img src="${item.imagem}" alt="">
+                        <div class="cart-sugestao-nome">${item.nome}</div>
+                        <div class="cart-sugestao-ref">Ref.: ${item.ref}</div>
+                        <div class="cart-sugestao-preco">${item.preco.toLocaleString('pt-AO')} Kz</div>
+                        <button class="cart-sugestao-btn" onclick="adicionarAoCarrinho('${item.nome}', '${item.ref}', ${item.preco}, '${item.imagem}')">Adicionar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function adicionarAoCarrinho(nome, ref, preco, imagem) {
+            const itemExistente = cart.find(item => item.ref === ref);
+            if (itemExistente) {
+                itemExistente.quantidade++;
+            } else {
+                cart.push({ nome, ref, preco, imagem, quantidade: 1 });
+            }
+            renderCart();
+        }
+
+        function aplicarCupom(event) {
+            event.preventDefault();
+            const cupom = document.getElementById('cupom').value.trim();
+            const mensagem = document.getElementById('cart-cupom-msg');
+            mensagem.innerHTML = '';
+            if (cupom === 'DESCONTO10') {
+                const desconto = 0.1;
+                cart = cart.map(item => {
+                    item.preco = Math.round(item.preco * (1 - desconto));
+                    return item;
+                });
+                renderCart();
+                mensagem.innerHTML = 'Cupom aplicado com sucesso!';
+            } else {
+                mensagem.innerHTML = 'Cupom inválido.';
+            }
+        }
+
+        // Eventos de clique para aumentar, diminuir e remover
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cart-qtd-btn')) {
+                const idx = e.target.closest('.cart-item').getAttribute('data-idx');
+                if (e.target.getAttribute('data-action') === 'increase') {
+                    cart[idx].quantidade++;
+                } else if (e.target.getAttribute('data-action') === 'decrease') {
+                    if (cart[idx].quantidade > 1) cart[idx].quantidade--;
+                }
+                renderCart();
+            }
+            if (e.target.classList.contains('cart-remove-btn')) {
+                const idx = e.target.closest('.cart-item').getAttribute('data-idx');
+                cart.splice(idx, 1);
+                renderCart();
+            }
+            if (e.target.id === 'cart-empty-btn') {
+                cart = [];
+                renderCart();
+            }
+        });
+
+        renderCart();
+    </script>
 </body>
 </html>

@@ -95,23 +95,12 @@
             font-size: 0.9em;
             font-weight: 600;
         }
-        .cart-preco {
-            font-weight: 700;
-            color: #fff;
-            font-size: 1em;
-            background: #444;
-            border-radius: 4px;
-            padding: 0.2em 0.7em;
-            white-space: nowrap;
-            text-align: right;
-            margin-left: 1em;
-        }
         .cart-qtd-controls {
             display: flex;
             align-items: center;
             gap: 0.3em;
             margin-left: 1em;
-            flex-direction: row; /* Garante a ordem normal */
+            flex-direction: row;
         }
         .cart-qtd-btn {
             background: #444;
@@ -126,9 +115,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background 0.2s, opacity 0.2s;
         }
-        .cart-qtd-btn:hover {
+        .cart-qtd-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #222;
+        }
+        .cart-qtd-btn:hover:not(:disabled) {
             background: #222;
         }
         .cart-qtd {
@@ -137,6 +131,17 @@
             font-weight: 700;
             color: #fff;
         }
+        .cart-preco {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1em;
+            background: #444;
+            border-radius: 4px;
+            padding: 0.2em 0.7em;
+            white-space: nowrap;
+            text-align: right;
+            margin-left: 1em;
+        }
         .cart-remove-btn {
             background: none;
             border: none;
@@ -144,12 +149,17 @@
             font-size: 1.3em;
             cursor: pointer;
             margin-left: 0.7em;
-            transition: color 0.2s;
+            transition: color 0.2s, background 0.2s;
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .cart-remove-btn:hover {
             color: #fff;
             background: #e74c3c;
-            border-radius: 50%;
         }
         .cart-total {
             display: flex;
@@ -185,13 +195,145 @@
             color: #fff;
             border: 1.5px solid #444;
         }
-        @media (max-width: 600px) {
-            .cart-main {
-                padding: 1rem 0.3rem;
-            }
-            .ombu-logo {
-                font-size: 1.1em;
-            }
+        .cart-img-zoom {
+            position: relative;
+            cursor: zoom-in;
+        }
+        .cart-img-zoom:hover::after {
+            content: '';
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%) scale(2.2);
+            width: 100%; height: 100%;
+            background: url(var(--img)) center/cover no-repeat;
+            border-radius: 7px;
+            z-index: 10;
+            box-shadow: 0 0 16px #000a;
+        }
+        .cart-cupom {
+            display: flex;
+            gap: 0.5em;
+            margin-bottom: 1em;
+        }
+        .cart-cupom input {
+            flex: 1;
+            padding: 0.5em;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #181818;
+            color: #fff;
+        }
+        .cart-cupom button {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5em 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cart-cupom button:hover {
+            background: #222;
+        }
+        .cart-cupom-msg {
+            color: #2ecc40;
+            font-size: 0.97em;
+            margin-bottom: 0.5em;
+        }
+        .cart-empty-btn {
+            background: none;
+            border: 1.5px solid #e74c3c;
+            color: #e74c3c;
+            border-radius: 7px;
+            padding: 0.5em 1.2em;
+            font-size: 0.97em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: auto;
+            margin-bottom: 1em;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cart-empty-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .cart-item-estoque {
+            color: #ffb300;
+            font-size: 0.9em;
+            margin-top: 0.2em;
+        }
+        .cart-entrega {
+            color: #bbb;
+            font-size: 0.97em;
+            margin-top: 0.7em;
+        }
+        .cart-login-msg {
+            color: #e74c3c;
+            font-size: 1em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .cart-login-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            padding: 0.7em 2em;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0 auto 1em auto;
+            display: block;
+        }
+        .cart-sugestoes {
+            margin-top: 2em;
+            border-top: 1px solid #333;
+            padding-top: 1em;
+        }
+        .cart-sugestoes-title {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 0.7em;
+            font-size: 1.05em;
+        }
+        .cart-sugestoes-list {
+            display: flex;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+        .cart-sugestao {
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 7px;
+            padding: 0.7em;
+            width: 120px;
+            text-align: center;
+            color: #fff;
+        }
+        .cart-sugestao img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 0.5em;
+        }
+        .cart-sugestao-nome {
+            font-size: 0.97em;
+            font-weight: 700;
+        }
+        .cart-sugestao-btn {
+            margin-top: 0.5em;
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 0.3em 0.7em;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .cart-sugestao-btn:hover {
+            background: #222;
         }
     </style>
 </head>
@@ -205,6 +347,16 @@
     <main>
         <div class="cart-main">
             <div class="cart-title">Seu carrinho</div>
+            <div class="cart-login-msg" id="cart-login-msg" style="display:none;">
+                Faça login para finalizar sua compra.
+                <button class="cart-login-btn" onclick="loginSimulado()">Entrar</button>
+            </div>
+            <button class="cart-empty-btn" id="cart-empty-btn">Esvaziar carrinho</button>
+            <form class="cart-cupom" onsubmit="aplicarCupom(event)">
+                <input type="text" id="cupom" placeholder="Cupom de desconto">
+                <button type="submit">Aplicar</button>
+            </form>
+            <div class="cart-cupom-msg" id="cart-cupom-msg"></div>
             <div class="cart-items" id="cart-items">
                 <!-- Itens do carrinho serão renderizados aqui -->
             </div>
@@ -212,12 +364,29 @@
                 <span>Total</span>
                 <span>0 Kz</span>
             </div>
+            <div class="cart-entrega" id="cart-entrega"></div>
             <div class="cart-actions">
                 <a href="index.html" class="cart-btn" id="checkout-btn">Finalizar compra</a>
+            </div>
+            <div class="cart-sugestoes" id="cart-sugestoes">
+                <div class="cart-sugestoes-title">Você também pode gostar</div>
+                <div class="cart-sugestoes-list" id="cart-sugestoes-list"></div>
             </div>
         </div>
     </main>
     <script>
+        // Simulação de login
+        let logado = false;
+
+        function loginSimulado() {
+            logado = true;
+            document.getElementById('cart-login-msg').style.display = 'none';
+            document.getElementById('cart-items').style.display = 'block';
+            document.getElementById('cart-total').style.display = 'block';
+            document.querySelector('.cart-actions').style.display = 'flex';
+            renderCart();
+        }
+
         // Carrinho de exemplo
         let cart = [
             {
@@ -263,10 +432,13 @@
                 total += item.preco * item.quantidade;
                 cartItems.innerHTML += `
                     <div class="cart-item" data-idx="${idx}">
-                        <img src="${item.imagem}" alt="">
+                        <div class="cart-img-zoom">
+                            <img src="${item.imagem}" alt="">
+                        </div>
                         <div class="cart-info">
                             <span class="cart-nome">${item.nome}</span>
                             <span class="cart-ref">Ref.: ${item.ref}</span>
+                            <span class="cart-item-estoque" style="display:none;">Em estoque</span>
                         </div>
                         <div class="cart-qtd-controls">
                             <button class="cart-qtd-btn" data-action="decrease" title="Diminuir" ${item.quantidade === 1 ? 'disabled' : ''}>−</button>
@@ -286,6 +458,75 @@
                 <span>Total</span>
                 <span>${total.toLocaleString('pt-AO')} Kz</span>
             `;
+            document.getElementById('cart-entrega').innerHTML = `
+                <span>Entrega:</span>
+                <span>Grátis</span>
+            `;
+            sugerirProdutos();
+        }
+
+        function sugerirProdutos() {
+            const sugestoes = [
+                {
+                    nome: "Camiseta Luanda",
+                    ref: "A002",
+                    preco: 4500,
+                    imagem: "https://th.bing.com/th/id/OIP.My-x02eN4lDFqKhNBcL74wHaHa?w=200&h=200&c=7&r=0&o=7&pid=1.7&rm=3"
+                },
+                {
+                    nome: "Boné Angola",
+                    ref: "B003",
+                    preco: 3700,
+                    imagem: "https://th.bing.com/th/id/OIP.U2XStKmc848bDwVYcFhCrgHaIl?w=183&h=212&c=7&r=0&o=7&pid=1.7&rm=3"
+                },
+                {
+                    nome: "Caneca Angola",
+                    ref: "C004",
+                    preco: 2700,
+                    imagem: "https://th.bing.com/th/id/OIP.Dl9GjVD59f0bYNYzlr3zuAHaE6?w=295&h=196&c=7&r=0&o=7&pid=1.7&rm=3"
+                }
+            ];
+            const cartSugestoesList = document.getElementById('cart-sugestoes-list');
+            cartSugestoesList.innerHTML = '';
+            sugestoes.forEach((item) => {
+                cartSugestoesList.innerHTML += `
+                    <div class="cart-sugestao">
+                        <img src="${item.imagem}" alt="">
+                        <div class="cart-sugestao-nome">${item.nome}</div>
+                        <div class="cart-sugestao-ref">Ref.: ${item.ref}</div>
+                        <div class="cart-sugestao-preco">${item.preco.toLocaleString('pt-AO')} Kz</div>
+                        <button class="cart-sugestao-btn" onclick="adicionarAoCarrinho('${item.nome}', '${item.ref}', ${item.preco}, '${item.imagem}')">Adicionar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function adicionarAoCarrinho(nome, ref, preco, imagem) {
+            const itemExistente = cart.find(item => item.ref === ref);
+            if (itemExistente) {
+                itemExistente.quantidade++;
+            } else {
+                cart.push({ nome, ref, preco, imagem, quantidade: 1 });
+            }
+            renderCart();
+        }
+
+        function aplicarCupom(event) {
+            event.preventDefault();
+            const cupom = document.getElementById('cupom').value.trim();
+            const mensagem = document.getElementById('cart-cupom-msg');
+            mensagem.innerHTML = '';
+            if (cupom === 'DESCONTO10') {
+                const desconto = 0.1;
+                cart = cart.map(item => {
+                    item.preco = Math.round(item.preco * (1 - desconto));
+                    return item;
+                });
+                renderCart();
+                mensagem.innerHTML = 'Cupom aplicado com sucesso!';
+            } else {
+                mensagem.innerHTML = 'Cupom inválido.';
+            }
         }
 
         // Eventos de clique para aumentar, diminuir e remover
@@ -302,6 +543,10 @@
             if (e.target.classList.contains('cart-remove-btn')) {
                 const idx = e.target.closest('.cart-item').getAttribute('data-idx');
                 cart.splice(idx, 1);
+                renderCart();
+            }
+            if (e.target.id === 'cart-empty-btn') {
+                cart = [];
                 renderCart();
             }
         });

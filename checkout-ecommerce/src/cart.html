@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho | Ombu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ombu-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+            font-weight: 900;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .ombu-logo .logo-icon {
+            width: 2.2em;
+            height: 2.2em;
+            background: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 2px 8px #0007;
+            border: 2px solid #fff;
+        }
+        .cart-main {
+            max-width: 700px;
+            margin: 2.5rem auto;
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #000a;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            border: 2px solid #444;
+        }
+        .cart-title {
+            font-size: 1.2em;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cart-items {
+            margin-bottom: 1.5em;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            background: #181818;
+            border-radius: 7px;
+            padding: 0.7em 1em;
+            border: 1.5px solid #333;
+            box-shadow: 0 1px 4px #0008;
+            margin-bottom: 0.7em;
+        }
+        .cart-item img {
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            object-fit: cover;
+            border: 2px solid #444;
+            background: #111;
+        }
+        .cart-info {
+            flex: 1 1 auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.1em;
+        }
+        .cart-nome {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            text-align: left;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-ref {
+            color: #888;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .cart-preco {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1em;
+            background: #444;
+            border-radius: 4px;
+            padding: 0.2em 0.7em;
+            white-space: nowrap;
+            text-align: right;
+            margin-left: 1em;
+        }
+        .cart-qtd-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            margin-left: 1em;
+            flex-direction: row; /* Garante a ordem normal */
+        }
+        .cart-qtd-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 1.7em;
+            height: 1.7em;
+            font-size: 1em;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .cart-qtd-btn:hover {
+            background: #222;
+        }
+        .cart-qtd {
+            min-width: 1.5em;
+            text-align: center;
+            font-weight: 700;
+            color: #fff;
+        }
+        .cart-remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-left: 0.7em;
+            transition: color 0.2s;
+        }
+        .cart-remove-btn:hover {
+            color: #fff;
+            background: #e74c3c;
+            border-radius: 50%;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            color: #fff;
+            font-size: 1.1em;
+            margin-top: 1em;
+            border-top: 1px solid #333;
+            padding-top: 0.7em;
+        }
+        .cart-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2em;
+        }
+        .cart-btn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            padding: 0.9em 2.2em;
+            font-size: 1em;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 1px 4px #000a;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cart-btn:hover {
+            background: #222;
+            color: #fff;
+            border: 1.5px solid #444;
+        }
+        @media (max-width: 600px) {
+            .cart-main {
+                padding: 1rem 0.3rem;
+            }
+            .ombu-logo {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="ombu-logo">
+            <span class="logo-icon">O</span>
+            Ombu
+        </div>
+    </header>
+    <main>
+        <div class="cart-main">
+            <div class="cart-title">Seu carrinho</div>
+            <div class="cart-items" id="cart-items">
+                <!-- Itens do carrinho serão renderizados aqui -->
+            </div>
+            <div class="cart-total" id="cart-total">
+                <span>Total</span>
+                <span>0 Kz</span>
+            </div>
+            <div class="cart-actions">
+                <a href="index.html" class="cart-btn" id="checkout-btn">Finalizar compra</a>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Carrinho de exemplo
+        let cart = [
+            {
+                nome: "Camiseta Angola",
+                ref: "A001",
+                preco: 5000,
+                imagem: "https://th.bing.com/th/id/OIP.My-x02eN4lDFqKhNBcL74wHaHa?w=200&h=200&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 4
+            },
+            {
+                nome: "Boné Luanda",
+                ref: "B002",
+                preco: 3500,
+                imagem: "https://th.bing.com/th/id/OIP.U2XStKmc848bDwVYcFhCrgHaIl?w=183&h=212&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 2
+            },
+            {
+                nome: "Caneca Maputo",
+                ref: "C003",
+                preco: 2500,
+                imagem: "https://th.bing.com/th/id/OIP.Dl9GjVD59f0bYNYzlr3zuAHaE6?w=295&h=196&c=7&r=0&o=7&pid=1.7&rm=3",
+                quantidade: 2
+            }
+        ];
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div style="text-align:center; color:#bbb; padding:2em 0; font-size:1.1em;">
+                        Seu carrinho está vazio.
+                    </div>
+                `;
+                document.getElementById('cart-total').innerHTML = '';
+                document.querySelector('.cart-actions').style.display = 'none';
+                return;
+            } else {
+                document.querySelector('.cart-actions').style.display = 'flex';
+            }
+            cart.forEach((item, idx) => {
+                total += item.preco * item.quantidade;
+                cartItems.innerHTML += `
+                    <div class="cart-item" data-idx="${idx}">
+                        <img src="${item.imagem}" alt="">
+                        <div class="cart-info">
+                            <span class="cart-nome">${item.nome}</span>
+                            <span class="cart-ref">Ref.: ${item.ref}</span>
+                        </div>
+                        <div class="cart-qtd-controls">
+                            <button class="cart-qtd-btn" data-action="decrease" title="Diminuir">−</button>
+                            <span class="cart-qtd">${item.quantidade}</span>
+                            <button class="cart-qtd-btn" data-action="increase" title="Aumentar">+</button>
+                        </div>
+                        <span class="cart-preco">${
+                            item.quantidade > 1
+                                ? item.quantidade + ' x ' + item.preco.toLocaleString('pt-AO') + ' Kz'
+                                : item.preco.toLocaleString('pt-AO') + ' Kz'
+                        }</span>
+                        <button class="cart-remove-btn" title="Remover">&times;</button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerHTML = `
+                <span>Total</span>
+                <span>${total.toLocaleString('pt-AO')} Kz</span>
+            `;
+        }
+
+        // Eventos de clique para aumentar, diminuir e remover
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cart-qtd-btn')) {
+                const idx = e.target.closest('.cart-item').getAttribute('data-idx');
+                if (e.target.getAttribute('data-action') === 'increase') {
+                    cart[idx].quantidade++;
+                } else if (e.target.getAttribute('data-action') === 'decrease') {
+                    if (cart[idx].quantidade > 1) cart[idx].quantidade--;
+                }
+                renderCart();
+            }
+            if (e.target.classList.contains('cart-remove-btn')) {
+                const idx = e.target.closest('.cart-item').getAttribute('data-idx');
+                cart.splice(idx, 1);
+                renderCart();
+            }
+        });
+
+        renderCart();
+    </script>
+</body>
+</html>

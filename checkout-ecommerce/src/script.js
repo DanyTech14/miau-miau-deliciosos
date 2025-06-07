@@ -5,22 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
             nome: "Camiseta Angola",
             ref: "A001",
             preco: 5000,
-            imagem: "https://placehold.co/38x38?text=C1",
-            quantidade: 2
+            imagem: "https://th.bing.com/th/id/OIP.My-x02eN4lDFqKhNBcL74wHaHa?w=200&h=200&c=7&r=0&o=7&pid=1.7&rm=3",
+            quantidade: 4
         },
         {
             nome: "Boné Luanda",
             ref: "B002",
             preco: 3500,
-            imagem: "https://placehold.co/38x38?text=B2",
-            quantidade: 1
+            imagem: "https://th.bing.com/th/id/OIP.U2XStKmc848bDwVYcFhCrgHaIl?w=183&h=212&c=7&r=0&o=7&pid=1.7&rm=3",
+            quantidade: 2
         },
         {
             nome: "Caneca Maputo",
             ref: "C003",
             preco: 2500,
-            imagem: "https://placehold.co/38x38?text=C3",
-            quantidade: 3
+            imagem: "https://th.bing.com/th/id/OIP.Dl9GjVD59f0bYNYzlr3zuAHaE6?w=295&h=196&c=7&r=0&o=7&pid=1.7&rm=3",
+            quantidade: 2
         }
     ];
 
@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartList = document.getElementById('cart-list');
         cartList.innerHTML = '';
         let subtotal = 0;
+        const entrega = 4500; // Valor fixo da entrega
+
         cart.forEach((item, idx) => {
             subtotal += item.preco * item.quantidade;
             cartList.innerHTML += `
@@ -43,11 +45,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         });
-        document.querySelector('.summary-totals').innerHTML = `
-            <div><span>Subtotal</span><span>${subtotal.toLocaleString('pt-AO')} Kz</span></div>
-            <div><span>Entrega</span><span>Grátis</span></div>
-            <div class="total"><span>Total</span><span>${subtotal.toLocaleString('pt-AO')} Kz</span></div>
-        `;
+
+        // Se não houver produtos, não mostra entrega nem total com entrega
+        if (cart.length > 0) {
+            document.querySelector('.summary-totals').innerHTML = `
+                <div><span>Subtotal</span><span>${subtotal.toLocaleString('pt-AO')} Kz</span></div>
+                <div><span>Entrega</span><span>${entrega.toLocaleString('pt-AO')} Kz</span></div>
+                <div class="total"><span>Total</span><span>${(subtotal + entrega).toLocaleString('pt-AO')} Kz</span></div>
+            `;
+        } else {
+            document.querySelector('.summary-totals').innerHTML = `
+                <div><span>Subtotal</span><span>0 Kz</span></div>
+                <div><span>Entrega</span><span>0 Kz</span></div>
+                <div class="total"><span>Total</span><span>0 Kz</span></div>
+            `;
+        }
     }
 
     renderCart();
